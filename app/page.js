@@ -19,32 +19,27 @@ const Homepage = () => {
         }}
       />
       <Button
-      label ="Decrement"
+        label="Decrement"
         clickHandler={() => {
           setCount(count - 1);
         }}
       />
-
-      </Button>
       <Button label="Download" />
       <Button label="Register Now" />
       <Button label="Learn more" />
-
 
       {count > 5 && <div>Special Message</div>}
 
       <br />
 
       <Button
-        label = {isVisible ? "Hide message" : "show message"}
+        label={isVisible ? "Hide message" : "show message"}
         clickHandler={() => {
           setIsVisible(!isVisible);
         }}
-        />
+      />
       {isVisible && <p>hello, world</p>}
     </div>
-
-
-
   );
 };
+export default Homepage;
