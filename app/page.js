@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import Button from "../components/Button";
 import ColorPicker from "../components/ColorPicker";
@@ -39,6 +40,8 @@ const Homepage = () => {
         }}
       />
       {isVisible && <p>hello, world</p>}
+
+      <ColorPicker />
     </div>
   );
 };
