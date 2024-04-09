@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import Button from "./Button";
 
-import styles from "";
+import styles from "./ColorPicker.module.scss";
 
 const colors = [
   {

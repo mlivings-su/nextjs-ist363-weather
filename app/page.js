@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/images";
+import Image from "next/image";
 import ButtonDemo from "../components/ButtonDemo";
 import ColorPicker from "../components/ColorPicker";
 import PeoplePicker from "../components/PeoplePicker";
@@ -19,6 +19,8 @@ const Homepage = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [daysOfWeek, setDaysOfWeek] = useState(null);
+  const [activeDayIndex, setActiveDayIndex] = useState(0);
 
   const peopleArr = getPeople();
 
@@ -40,6 +42,22 @@ const Homepage = () => {
     };
     location ? fetchData() : null;
   }, [location]);
+
+  useEffect(() => {
+    //filter out days of week
+    const tempWeek = [];
+
+    weatherData &&
+      weatherData.list.filter((block) => {
+        const date = new Date(block.dt * 100);
+        const options = { weekday: "short" };
+        const day = date.toLocaleDateString("en-US", options);
+        console.log(day);
+      });
+
+    setDaysOfWeek(tempWeek);
+    //then set state with the day of the week
+  }, [weatherData]);
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -76,6 +94,13 @@ const Homepage = () => {
       {/* <PeoplePicker people={peopleArr} />
       <ButtonDemo />
       <ColorPicker /> */}
+      {daysOfWeek && (
+        <div>
+          {daysOfWeek?.map((day, index) => {
+            return <li key={index}>{day.main.temp}</li>;
+          })}
+        </div>
+      )}
     </div>
   );
 };
