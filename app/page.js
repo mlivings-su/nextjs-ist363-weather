@@ -6,25 +6,54 @@ import ButtonDemo from "../components/ButtonDemo";
 import ColorPicker from "../components/ColorPicker";
 import PeoplePicker from "../components/PeoplePicker";
 
-import { getPeople, getWeatherData } from "../lib/api.js";
+import {
+  getGeoLocation,
+  getPeople,
+  getWeatherData,
+  getWeatherDataByLatLon,
+} from "../lib/api.js";
+
+// import {} from "next/dist/lib/constants";
 
 const Homepage = () => {
   const [weatherData, setWeatherData] = useState(null);
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
 
   const peopleArr = getPeople();
 
   useEffect(() => {
+    getGeoLocation()
+      .then((position) => {
+        console.log(position);
+        setLocation(position);
+      })
+      .catch((error) => {
+        setErrorMsg(error);
+        // console.log(error);
+      });
+  }, []);
+  useEffect(() => {
     const fetchData = async () => {
-      const response = await getWeatherData();
+      const response = await getWeatherDataByLatLon(location);
       setWeatherData(response);
     };
-    fetchData;
-  }, []);
+    location ? fetchData() : null;
+  }, [location]);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await getWeatherData();
+  //     setWeatherData(response);
+  //   };
+  //   fetchData();
+  // }, []);
 
   //console.log({ peopleArr });
   return (
     <div>
       <h1> Weather App </h1>
+      (errorMsg && <div>{errorMsg}</div>)
       {weatherData && (
         <div>
           <h2>{weatherData.city.name}</h2>
