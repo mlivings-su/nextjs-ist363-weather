@@ -1,4 +1,5 @@
 import classnames from "classnames/bind";
+
 import styles from "./Tabs.module.scss";
 
 const cx = classnames.bind(styles);

@@ -1,10 +1,12 @@
 "use client";
-
+//core
 import { useEffect, useState } from "react";
+
+//next.js
 import Image from "next/image";
-import ButtonDemo from "../components/ButtonDemo";
-import ColorPicker from "../components/ColorPicker";
-import PeoplePicker from "../components/PeoplePicker";
+
+//custom
+import List from "../components/List";
 import Tabs from "../components/Tabs";
 
 import {
@@ -54,7 +56,7 @@ const Homepage = () => {
         const options = { weekday: "short" };
         const day = date.toLocaleDateString("en-US", options);
         // console.log(day);
-        if {!tempWeek.includes(day)} {
+        if (!tempWeek.includes(day)) {
           tempWeek.push(day);
         }
       });
@@ -70,7 +72,6 @@ const Homepage = () => {
       (errorMsg && <div>{errorMsg}</div>)
       {weatherData && (
         <div>
-          
           <h2>{weatherData.city.name}</h2>
           <p>Current temp: {weatherData.list[0].main.temp}&deg; F</p>
           <p>{weatherData.list[0].weather[0].description}</p>
@@ -87,31 +88,25 @@ const Homepage = () => {
             height={100}
           />
         </div>
-       
       )}
-
       {/* <PeoplePicker people={peopleArr} />
       <ButtonDemo />
       <ColorPicker /> */}
-      {daysOfWeek && (
+      {weatherData && daysOfWeek && (
         <section>
-         <Tabs 
-         activeIndex={activeDayIndex}
-         items={daysOfWeek} clickHandler={setActiveDayIndex}/>
-        <div>
-          {weatherData?.list
-          .filter((block) => {
-          const date = new Date(block.dt * 1000);
-          const options = {weekday: "short"};
-          const day = date.toLocaleDateString("en-US", options);
-          return day === daysOfWeek[activeDayIndex];
-        })
-        .map((block,index)) => {
-          return <p key={index}>{block.main.temp}></p>
-      }
-        </div>
-    </section>
-      );
-    };
-
+          <Tabs
+            activeIndex={activeDayIndex}
+            items={daysOfWeek}
+            clickHandler={setActiveDayIndex}
+          />
+          <List
+            activeIndex={activeDayIndex}
+            items={weatherData.list}
+            daysOfWeek={daysOfWeek}
+          />
+        </section>
+      )}
+    </div>
+  );
+};
 export default Homepage;
