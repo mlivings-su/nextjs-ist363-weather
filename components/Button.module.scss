@@ -1,6 +1,9 @@
-.btn{
-    background-color: lightblue;
-    padding: 0.5rem 1.5rem;
-    font-family: Arial;
-    font-size: 1rem;
+@use "../sass/abstracts/vars";
+
+.btn {
+  background-color: vars.$color__primary;
+  color: black;
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
 }
