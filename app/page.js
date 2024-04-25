@@ -52,10 +52,10 @@ const Homepage = () => {
 
     weatherData &&
       weatherData.list.filter((block) => {
-        const date = new Date(block.dt * 100);
+        const date = new Date(block.dt * 1000);
         const options = { weekday: "short" };
         const day = date.toLocaleDateString("en-US", options);
-        // console.log(day);
+        //console.log(day);
         if (!tempWeek.includes(day)) {
           tempWeek.push(day);
         }

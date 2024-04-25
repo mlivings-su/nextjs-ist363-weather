@@ -9,7 +9,7 @@ const Tabs = ({ activeIndex, clickHandler, items }) => {
     <ul className={styles.tabs}>
       {items?.map((item, index) => {
         const itemClasses = cx({
-          tabs__items: true,
+          tabs__item: true,
           active: index === activeIndex,
         });
         return (
